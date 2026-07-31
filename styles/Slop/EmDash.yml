@@ -1,0 +1,8 @@
+# Em-dashes are good punctuation. Three in one paragraph is a fingerprint.
+extends: occurrence
+message: "%d em-dashes in one paragraph — vary the punctuation."
+link: https://github.com/Syntaf/vale-llm-slop#slopemdash
+level: suggestion
+scope: paragraph
+max: 2
+token: '[—–]'

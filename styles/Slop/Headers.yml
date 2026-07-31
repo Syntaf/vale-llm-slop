@@ -1,0 +1,22 @@
+# Header templating: the listicle shapes generated docs fall into.
+extends: existence
+message: "Templated header: '%s'. Say what the section actually covers."
+link: https://github.com/Syntaf/vale-llm-slop#slopheaders
+level: suggestion
+scope: heading
+ignorecase: true
+nonword: true
+tokens:
+  - '^Why .+ Matters'
+  - '^Understanding .+'
+  - '^Demystifying\b'
+  - '^Unlocking\b'
+  - '^Unleashing\b'
+  - '^Mastering\b'
+  - '^A Deep Dive'
+  - '^The Ultimate Guide'
+  - '^Everything You Need to Know'
+  - '^\d+ (?:Reasons|Ways|Tips|Things)\b'
+  - '\bBest Practices\b'
+  - '\bKey Takeaways\b'
+  - '^The .+ Behind\b'

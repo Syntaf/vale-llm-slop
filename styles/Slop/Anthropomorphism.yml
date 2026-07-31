@@ -1,0 +1,21 @@
+# Giving code intentions it does not have.
+#
+# "The parser wants a trailing newline" is shorthand that hides the actual
+# rule: the parser errors without one. Intent language reads fluently and
+# leaves the reader unable to predict behaviour.
+extends: existence
+message: "Code does not have intentions: '%s'. State the behaviour."
+link: https://github.com/Syntaf/vale-llm-slop#slopanthropomorphism
+level: suggestion
+ignorecase: true
+nonword: true
+tokens:
+  - '\b(?:knows|know)\s+(?:about|how\s+to)\b'
+  - '\bis\s+aware\s+of\b'
+  - '\b(?:wants|prefers|expects|likes)\s+(?:a|an|the|to)\b'
+  - '\b(?:decides|chooses)\s+to\b'
+  - '\bis\s+happy\s+to\b'
+  - '\bwill\s+complain\b'
+  - '\bdoes\s*n.t\s+like\b'
+  - '\bcares\s+about\b'
+  - '\bis\s+responsible\s+for\b'

@@ -1,0 +1,46 @@
+# Words that are legitimate English but wildly overrepresented in generated
+# prose. Kept at `suggestion` on purpose: in any given sentence one of these
+# may be exactly right. The signal is density, not any single hit.
+extends: existence
+message: "Overused in generated prose: '%s'. Is it earning its place?"
+link: https://github.com/Syntaf/vale-llm-slop#slopoverused
+level: suggestion
+ignorecase: true
+nonword: true
+tokens:
+  - '\brobust\b'
+  - '\bseamless(?:ly)?\b'
+  - '\bholistic(?:ally)?\b'
+  - '\bmyriad\b'
+  - '\bplethora\b'
+  - '\bcutting[-\s]edge\b'
+  - '\bstate[-\s]of[-\s]the[-\s]art\b'
+  - '\bcomprehensive(?:ly)?\b'
+  - '\bmeticulous(?:ly)?\b'
+  - '\bprofound(?:ly)?\b'
+  - '\btransformative\b'
+  - '\bunprecedented\b'
+  - '\bintricate(?:ly)?\b'
+  - '\bmultifaceted\b'
+  - '\bnuanced\b'
+  - '\bpivotal\b'
+  - '\bcrucial(?:ly)?\b'
+  - '\bvital(?:ly)?\b'
+  - '\belevat(?:e|es|ed|ing)\b'
+  - '\bempower(?:s|ed|ing)?\b'
+  - '\bfoster(?:s|ed|ing)?\b'
+  - '\bfacilitat(?:e|es|ed|ing)\b'
+  - '\bunderscor(?:e|es|ed|ing)\b'
+  - '\bleverag(?:e|es|ed|ing)\b'
+  - '\butiliz(?:e|es|ed|ing|ation)\b'
+  - '\bshowcas(?:e|es|ed|ing)\b'
+  - '\bspearhead(?:s|ed|ing)?\b'
+  - '\bstreamlin(?:e|es|ed|ing)\b'
+  - '\bbolster(?:s|ed|ing)?\b'
+  - '\bgarner(?:s|ed|ing)?\b'
+  - '\bglean(?:s|ed|ing)?\b'
+  - '\ba\s+wealth\s+of\b'
+  - '\bplays\s+a\s+(?:key|crucial|vital|pivotal|critical)\s+role\b'
+  - '\bserves\s+as\s+a\b'
+  - '\bstands\s+as\s+a\b'
+  - '\bin\s+the\s+world\s+of\b'

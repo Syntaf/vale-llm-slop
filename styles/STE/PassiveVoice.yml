@@ -1,0 +1,10 @@
+# ASD-STE100: use the active voice in procedures, and prefer it in
+# descriptive text. Matched as a be-verb followed by a past participle.
+extends: sequence
+message: "STE: passive voice. Name the agent and use the active voice."
+link: https://github.com/Syntaf/vale-llm-slop#stepassivevoice
+level: warning
+tokens:
+  - pattern: '(?i)\b(?:am|is|are|was|were|be|been|being)\b'
+  - tag: VBN
+    skip: 2

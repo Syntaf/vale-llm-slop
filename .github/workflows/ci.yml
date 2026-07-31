@@ -1,0 +1,22 @@
+name: test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Vale
+        run: |
+          VER=$(curl -sSL https://api.github.com/repos/vale-cli/vale/releases/latest | jq -r .tag_name | tr -d v)
+          curl -sSL "https://github.com/vale-cli/vale/releases/download/v${VER}/vale_${VER}_Linux_64-bit.tar.gz" \
+            | tar xz -C /usr/local/bin vale
+          vale --version
+
+      - name: Run style tests
+        run: ./scripts/test.sh

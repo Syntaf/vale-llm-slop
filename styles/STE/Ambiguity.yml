@@ -1,0 +1,19 @@
+# ASD-STE100: constructions that leave the reader to guess. Slashes,
+# open-ended lists, and Latin abbreviations are all banned outright.
+extends: existence
+message: "STE: '%s' is ambiguous. Write the alternatives out in full."
+link: https://github.com/Syntaf/vale-llm-slop#steambiguity
+level: error
+ignorecase: true
+nonword: true
+tokens:
+  - '\band\s*/\s*or\b'
+  - '\betc\.?'
+  - '\be\.g\.'
+  - '\bi\.e\.'
+  - '\band\s+so\s+(?:on|forth)\b'
+  - '\bas\s+(?:required|necessary|applicable)\b'
+  - '\bif\s+(?:required|necessary|applicable)\b'
+  # A slash standing in for "and"/"or". Restricted to lowercase pairs so that
+  # protocol and unit names (TCP/IP, I/O, km/h) do not trip it.
+  - '\b[a-z]{3,}/[a-z]{3,}\b'

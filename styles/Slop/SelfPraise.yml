@@ -1,0 +1,24 @@
+# Comments that rate the code instead of explaining it.
+#
+# "This ensures correctness", "for better readability", "handles this
+# gracefully" — the comment asserts a virtue the reader cannot check and the
+# compiler does not enforce. Say what would break without the line instead.
+extends: existence
+message: "Self-praise: '%s'. State what breaks without it."
+link: https://github.com/Syntaf/vale-llm-slop#slopselfpraise
+level: warning
+ignorecase: true
+nonword: true
+tokens:
+  - '\bfor\s+(?:better\s+)?readability\b'
+  - '\bfor\s+clarity\b'
+  - '\bmore\s+maintainable\b'
+  - '\bcleaner\s+and\s+more\b'
+  - '\bbest\s+practices?\b'
+  - '\b(?:gracefully|elegantly|seamlessly|robustly)\b'
+  - '\bthis\s+ensures\s+that\b'
+  - '\bensur(?:es|ing)\s+correctness\b'
+  - '\b(?:properly|correctly)\s+handles?\b'
+  - '\bhandles?\s+(?:this|it|the\s+case)\s+gracefully\b'
+  - '\bmakes\s+the\s+code\s+(?:more|easier)\b'
+  - '\bis\s+the\s+(?:cleanest|simplest|most\s+elegant)\s+way\b'

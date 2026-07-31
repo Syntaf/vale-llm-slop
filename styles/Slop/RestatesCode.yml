@@ -1,0 +1,24 @@
+# Docstrings and comments that paraphrase the line below them.
+#
+# A comment earns its place by saying something the code cannot: why this
+# approach, what breaks otherwise, which constraint forced the shape. A comment
+# that re-reads the signature in prose costs a line and pays nothing.
+extends: existence
+message: "Restates the code: '%s'. Say why, not what."
+link: https://github.com/Syntaf/vale-llm-slop#sloprestatescode
+level: warning
+ignorecase: true
+nonword: true
+tokens:
+  # "This function returns ..." — the signature already said so.
+  - '\bThis\s+(?:function|method|class|helper|module|file|script|property|field)\s+(?:is\s+responsible\s+for\s+|simply\s+|just\s+)?(?:return(?:s|ing)?|tak(?:e|es|ing)|accept(?:s|ing)?|do(?:es|ing)?|handl(?:e|es|ing)|manag(?:e|es|ing)|perform(?:s|ing)?|provid(?:e|es|ing)|allow(?:s|ing)?|enabl(?:e|es|ing)|represent(?:s|ing)?|stor(?:e|es|ing)|hold(?:s|ing)?)\b'
+  - '\b(?:Helper|Utility|Convenience)\s+(?:function|method|class|type)\b'
+  - '\bA\s+(?:simple|small|thin|lightweight)\s+wrapper\s+(?:around|for|over)\b'
+  - '\b(?:Simply|Just)\s+returns?\b'
+  # Narration of control flow that is visible on the next line.
+  - '\b(?:Loop\s+through|Iterate\s+over)\s+(?:the|each|all|every)\b'
+  - '\bCreate\s+a\s+new\s+instance\s+of\b'
+  - '\b(?:Set|Get)\s+the\s+value\s+of\b'
+  - '\bInitializ[e]?\s+the\s+\w+\s+(?:variable|field|list|array|dictionary|map)\b'
+  - '\bReturn\s+the\s+result\b'
+  - '\bIncrement\s+(?:the\s+)?\w+\s+by\s+(?:one|1)\b'

@@ -1,0 +1,40 @@
+name: release
+
+# Tag a version to publish the installable package:
+#   git tag v0.1.0 && git push origin v0.1.0
+#
+# Consumers then point Packages= at:
+#   https://github.com/<owner>/<repo>/releases/latest/download/vale-llm-slop.zip
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build packages
+        run: |
+          # Complete package. The zip MUST contain a single top-level folder
+          # named after the package, or `vale sync` fails with
+          # "lstat .../vale-llm-slop: no such file or directory".
+          mkdir -p pkg/vale-llm-slop/styles
+          cp -r styles/Slop styles/STE pkg/vale-llm-slop/styles/
+          printf 'StylesPath = styles\n' > pkg/vale-llm-slop/.vale.ini
+          (cd pkg && zip -r ../vale-llm-slop.zip vale-llm-slop)
+
+          # Style-only packages, for consumers who want just one.
+          (cd styles && zip -r ../Slop.zip Slop && zip -r ../STE.zip STE)
+
+      - name: Publish
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            vale-llm-slop.zip
+            Slop.zip
+            STE.zip

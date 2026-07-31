@@ -1,0 +1,19 @@
+# A reason given without giving the reason.
+#
+# "for various reasons" and "due to the nature of the system" occupy the slot
+# where the explanation belongs. If the reason is genuinely lost to history,
+# "nobody remembers why" is more useful than a phrase that implies it is known.
+extends: existence
+message: "Non-reason: '%s'. Give the actual reason or admit it is unknown."
+link: https://github.com/Syntaf/vale-llm-slop#slopvaguereasons
+level: warning
+ignorecase: true
+nonword: true
+tokens:
+  - '\bfor\s+(?:various|obvious|a\s+variety\s+of)\s+reasons\b'
+  - '\bdue\s+to\s+the\s+nature\s+of\b'
+  - '\bfor\s+performance\s+reasons\b'
+  - '\bfor\s+safety\s+reasons\b'
+  - '\bas\s+(?:one\s+would\s+)?expect(?:ed)?\b'
+  - '\bthis\s+is\s+by\s+design\b'
+  - '\bfor\s+legacy\s+reasons\b'

@@ -1,0 +1,22 @@
+# "It's not just X — it's Y." The single most reliable structural tell.
+# Survives every vocabulary filter, because none of the words are unusual.
+#
+# The gap classes below allow newlines: this construction almost always
+# straddles a line break in hard-wrapped prose.
+extends: existence
+message: "Negative parallelism ('%s') is a machine cadence. State the claim once."
+link: https://github.com/Syntaf/vale-llm-slop#slopnegativeparallelism
+level: warning
+ignorecase: true
+nonword: true
+tokens:
+  # "is not just a tool — it's a platform"
+  - '\b(?:(?:is|are|was|were|it.s|they.re)\s+not|isn.t|aren.t|wasn.t|weren.t)\s+(?:just|only|merely|simply)\b[^.!?]{0,80}[—–,;:]\s*(?:it.s|they.re|it\s+is|they\s+are|but|rather)\b'
+  # "This isn't a refactor. It's a rewrite."
+  - '\b(?:isn.t|aren.t|wasn.t|weren.t|is\s+not|are\s+not)\b[^.!?]{0,60}\.\s+(?:It.s|They.re|It\s+is|They\s+are)\b'
+  # "not only X but also Y"
+  - '\bnot\s+only\b[^.!?]{0,80}\bbut\s+also\b'
+  # "not just about X — but Y"
+  - '\bnot\s+(?:just|merely|simply)\s+(?:about|a|an|the)\b[^.!?]{0,60}[—–,]\s*but\b'
+  # "less about X, more about Y"
+  - '\bless\s+about\b[^.!?]{0,60}\band\s+more\s+about\b'

@@ -1,0 +1,21 @@
+# Chat-assistant voice leaking into committed prose: PR descriptions, commit
+# bodies, docs pasted out of a model. Almost never intentional, so: error.
+extends: existence
+message: "Assistant voice in committed prose: '%s'."
+link: https://github.com/Syntaf/vale-llm-slop#slopassistant
+level: error
+ignorecase: true
+nonword: true
+tokens:
+  - '\b(?:great|excellent|good)\s+(?:question|point|catch)\b'
+  - '\byou.re\s+absolutely\s+(?:right|correct)\b'
+  - '\bI\s+apologize\s+for\s+(?:the|any)\s+confusion\b'
+  - '\bI\s+hope\s+this\s+helps\b'
+  - '\blet\s+me\s+know\s+if\s+you\s+(?:have\s+any|need)\b'
+  - '\bfeel\s+free\s+to\s+(?:ask|reach\s+out|let\s+me\s+know)\b'
+  - '\bas\s+an\s+AI\b'
+  - '\bI.d\s+be\s+happy\s+to\b'
+  - '\bcertainly!'
+  - '\bof\s+course!'
+  - '\bhere.s\s+(?:a\s+breakdown|the\s+breakdown|what\s+I|how\s+it\s+works)\b'
+  - '\bin\s+summary,'

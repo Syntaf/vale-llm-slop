@@ -1,0 +1,4 @@
+.vale/
+*.zip
+styles/STE/DictionaryFull.yml
+.DS_Store

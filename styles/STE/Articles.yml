@@ -1,0 +1,18 @@
+# ASD-STE100: keep articles ("the", "a") — telegraphic style is banned.
+# "Remove bolt." must be "Remove the bolt."
+#
+# WHY THIS IS NOT A POS RULE: the obvious implementation is a `sequence` of
+# [tag: VB, tag: NN]. It does not work. Vale's part-of-speech tagger is trained
+# on newswire, where sentence-initial imperatives are rare, so it tags "Remove",
+# "Install" and "Open" as nouns and the sequence never matches. A closed list of
+# procedural verbs is less elegant and much more reliable.
+#
+# Add your own project's procedural verbs to the first group.
+extends: existence
+message: "STE: '%s' drops the article. Write 'the' or 'a' before the noun."
+link: https://github.com/Syntaf/vale-llm-slop#stearticles
+level: warning
+ignorecase: false
+nonword: true
+tokens:
+  - '\b(?:Remove|Install|Open|Close|Check|Turn|Set|Push|Pull|Connect|Disconnect|Apply|Tighten|Loosen|Measure|Replace|Examine|Clean|Lubricate|Attach|Release|Adjust|Align|Discard|Record|Inspect|Fill|Drain|Start|Stop|Lower|Raise)\s+(?!(?:the|a|an|all|both|each|every|this|that|these|those|any|no|it|them|and|to|from|as|with|until|when|if|for|on|in|at|off|out|up|down|two|three|four|five|six|both)\b)[a-z]{3,}\b'

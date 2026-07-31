@@ -1,0 +1,9 @@
+# ASD-STE100: descriptive sentences must not exceed 25 words.
+# (Procedural sentences have a tighter 20-word limit — see ProcedureLength.yml.)
+extends: occurrence
+message: "Sentence is %d words. STE caps descriptive text at 25."
+link: https://github.com/Syntaf/vale-llm-slop#ste
+level: warning
+scope: sentence
+max: 25
+token: '[\w''’-]+'

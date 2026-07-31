@@ -1,0 +1,15 @@
+# ASD-STE100: give one instruction per sentence. Chained steps hide the
+# second action from a reader skimming a procedure.
+extends: existence
+message: "STE: '%s' chains two instructions. Split them into separate steps."
+link: https://github.com/Syntaf/vale-llm-slop#steoneinstruction
+level: warning
+scope: list
+ignorecase: true
+nonword: true
+tokens:
+  - '\band\s+then\b'
+  - ',\s+then\b'
+  - '\bafter\s+(?:that|which)\b'
+  - '\bwhile\s+(?:also\s+)?(?:you\s+|the\s+)?\w+ing\b'
+  - '\bat\s+the\s+same\s+time\b'

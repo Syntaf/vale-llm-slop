@@ -1,0 +1,13 @@
+# The rule-of-three habit: three parallel modifiers where one would do.
+# Deliberately narrow (adverb and comparative triples only) — plain three-item
+# lists are normal English and are NOT flagged.
+extends: existence
+message: "Rule-of-three cadence: '%s'. Cut to the one that matters."
+link: https://github.com/Syntaf/vale-llm-slop#sloptricolon
+level: suggestion
+ignorecase: true
+nonword: true
+tokens:
+  - '\b\w+ly,\s+\w+ly,\s+and\s+\w+ly\b'
+  - '\b(?:more|less)\s+\w+,\s+(?:more|less)\s+\w+,\s+and\s+(?:more|less)\s+\w+\b'
+  - '\b\w+er,\s+\w+er,\s+and\s+\w+er\b'

@@ -1,0 +1,13 @@
+# Formal connectives that generated prose reaches for at every paragraph
+# boundary. One is fine; they cluster.
+extends: existence
+message: "Stock connective: '%s'."
+link: https://github.com/Syntaf/vale-llm-slop#sloptransitions
+level: suggestion
+nonword: true
+tokens:
+  - '\b(?:Moreover|Furthermore|Additionally|Notably|Importantly|Consequently|Nevertheless|Nonetheless),'
+  - '\bAt\s+its\s+core,'
+  - '\bUltimately,'
+  - '\bThat\s+said,'
+  - '\bWith\s+that\s+in\s+mind,'

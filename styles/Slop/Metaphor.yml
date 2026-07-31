@@ -1,0 +1,46 @@
+# Metaphor standing in for mechanism.
+#
+# The failure this rule exists for:
+#
+#   "Reads as the provenance for the firm grain-matched against the fund.
+#    Load bearing against the user's request for firm context."
+#
+# Every word is English, none of them say what the code does. An agent reaches
+# for analogy when it is summarising rather than explaining, so these phrases
+# cluster exactly where a comment is least useful.
+#
+# The test for a flagged line: delete it. If the reader lost nothing, it was
+# decoration. If they lost the reason, rewrite it with the mechanism named.
+extends: existence
+message: "Metaphor instead of mechanism: '%s'. Say what it does."
+link: https://github.com/Syntaf/vale-llm-slop#slopmetaphor
+level: warning
+ignorecase: true
+nonword: true
+tokens:
+  # --- explanation by analogy ---
+  - '\breads?\s+as\s+(?:the|a|an)\b'
+  - '\bthink\s+of\s+(?:this|it|that|these)\s+as\b'
+  - '\byou\s+can\s+think\s+of\b'
+  - '\bis\s+(?:essentially|basically|effectively|conceptually)\s+(?:a|an|the)\b'
+  - '\bacts?\s+(?:as|like)\s+(?:a|an|the)\b'
+  - '\bbehaves?\s+like\s+(?:a|an|the)\b'
+  - '\bstands?\s+in\s+for\b'
+  - '\bmuch\s+like\s+(?:a|an|the)\b'
+  - '\bakin\s+to\b'
+  - '\banalogous\s+to\b'
+  - '\bthe\s+\w+\s+equivalent\s+of\b'
+  - '\bin\s+the\s+same\s+way\s+that\b'
+
+  # --- borrowed weight: abstract nouns doing a verb's job ---
+  # Each is legitimate in its home domain, so the exclusions matter.
+  - '\bload[-\s]bearing\b(?!\s+(?:wall|walls|beam|beams|column|columns|member|members|structure|capacity))'
+  - '(?<!SLSA\s)(?<!build\s)(?<!data\s)(?<!artifact\s)(?<!image\s)(?<!package\s)(?<!chain\s)(?<!file\s)\bprovenance\b'
+  - '\bsentinel\b(?!\s+(?:value|values|node|nodes|object|objects|file|files|error|errors|record|records|entry|entries))'
+  - '\bgrain[-\s]matched\b'
+  - '\bgrain\s+of\s+(?:truth|salt)\b'
+  - '\b(?:against|with|matched\s+against)\s+the\s+grain\b'
+  - '\bthe\s+shape\s+of\s+the\b'
+  - '\bsurface\s+area\s+of\b'
+  - '\bthe\s+\w+\s+story\b'
+  - '\bfirst[-\s]class\s+(?:citizen|concept|notion)\b'

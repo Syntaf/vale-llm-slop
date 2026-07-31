@@ -1,0 +1,11 @@
+# ASD-STE100: do not use noun clusters of more than three words.
+# "main landing gear door actuator" is the classic failure case.
+extends: sequence
+message: "STE: noun cluster longer than three words. Break it with a preposition."
+link: https://github.com/Syntaf/vale-llm-slop#stenounclusters
+level: warning
+tokens:
+  - tag: NN|NNS|NNP
+  - tag: NN|NNS|NNP
+  - tag: NN|NNS|NNP
+  - tag: NN|NNS|NNP

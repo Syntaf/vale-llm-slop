@@ -1,0 +1,32 @@
+# Throat-clearing before the actual point.
+#
+# "Note that", "Under the hood", "At a high level" — each one announces that an
+# explanation is coming instead of being the explanation. Cut the frame and
+# keep the sentence; it survives every time.
+extends: existence
+message: "Throat-clearing: '%s'. Cut the frame, keep the point."
+link: https://github.com/Syntaf/vale-llm-slop#slopceremony
+level: suggestion
+ignorecase: true
+nonword: true
+tokens:
+  - '\bNote\s+that\b'
+  - '\bPlease\s+note\b'
+  - '\bit.s\s+worth\s+noting\b'
+  - '\bit\s+is\s+worth\s+noting\b'
+  - '\bit.s\s+important\s+to\s+(?:note|remember|understand|recognize)\b'
+  - '\bit\s+is\s+important\s+to\s+(?:note|remember|understand|recognize)\b'
+  - '\bunder\s+the\s+hood\b'
+  - '\bbehind\s+the\s+scenes\b'
+  - '\bat\s+a\s+high\s+level\b'
+  - '\bsimply\s+put\b'
+  - '\bin\s+essence\b'
+  - '\bessentially,'
+  - '\beffectively,'
+  - '\bconceptually,'
+  - '\bin\s+other\s+words\b'
+  - '\bthat\s+is\s+to\s+say\b'
+  - '\bput\s+(?:simply|differently|another\s+way)\b'
+  - '\bto\s+be\s+clear\b'
+  - '\b(?:bear|keep)\s+in\s+mind\b'
+  - '\bas\s+(?:mentioned|noted)\s+(?:above|earlier|previously)\b'

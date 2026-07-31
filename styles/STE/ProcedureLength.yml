@@ -1,0 +1,12 @@
+# ASD-STE100: procedural sentences must not exceed 20 words.
+#
+# APPROXIMATION: Vale cannot tell procedural from descriptive text, so this
+# rule uses list items as the proxy for procedures. A list item holding more
+# than one sentence will over-count. Tighten or drop per project.
+extends: occurrence
+message: "List item is %d words. STE caps procedural text at 20."
+link: https://github.com/Syntaf/vale-llm-slop#ste
+level: suggestion
+scope: list
+max: 20
+token: '[\w''’-]+'

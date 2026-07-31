@@ -1,0 +1,13 @@
+# ASD-STE100: do not use the -ing form (gerund or participle) unless the word
+# is part of an approved Technical Name.
+#
+# POS-tagged, so accuracy tracks the tagger. Imperative-heavy technical prose
+# is out of the tagger's training distribution; expect misses and false hits.
+# Add project Technical Names to `exceptions` rather than loosening the rule.
+extends: sequence
+message: "STE: '%s' is an -ing form. Rewrite with a finite verb."
+link: https://github.com/Syntaf/vale-llm-slop#stegerunds
+level: suggestion
+ignorecase: false
+tokens:
+  - tag: VBG

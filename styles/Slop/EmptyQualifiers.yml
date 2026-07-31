@@ -1,0 +1,20 @@
+# Adjectives that narrow nothing.
+#
+# "Returns the appropriate handler for the given request." Which handler?
+# Appropriate to what? The qualifier is there because the sentence felt short,
+# not because it carries a constraint. Delete the adjective and the sentence
+# means exactly the same thing — that is the tell.
+extends: existence
+message: "Empty qualifier: '%s'. It narrows nothing — name the actual constraint."
+link: https://github.com/Syntaf/vale-llm-slop#slopemptyqualifiers
+level: warning
+ignorecase: true
+nonword: true
+tokens:
+  - '\bthe\s+(?:given|specified|appropriate|relevant|necessary|proper|desired|corresponding|requested|provided|underlying)\s+\w+'
+  - '\bany\s+necessary\s+\w+'
+  - '\bvarious\s+(?!reasons\b)\w+'
+  - '\bas\s+(?:appropriate|needed)\b'
+  - '\bif\s+applicable\b'
+  - '\bwhere\s+appropriate\b'
+  - '\bproperly\s+(?:configured|formatted|initialized|handled)\b'

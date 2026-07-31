@@ -1,0 +1,49 @@
+# NOTE ON WHITESPACE: every multi-word pattern uses `\s+` rather than a literal
+# space. Markdown prose is usually hard-wrapped, so a literal space silently
+# fails to match any phrase that happens to straddle a line break.
+extends: existence
+message: "LLM tell: '%s'."
+link: https://github.com/Syntaf/vale-llm-slop#slop
+level: warning
+ignorecase: true
+nonword: true
+tokens:
+  # --- metaphor reaches machines love and humans rarely need ---
+  - '\bdelv(?:e|es|ed|ing)\b'
+  - '\btapestry\b'
+  - '\ba\s+testament\s+to\b'
+  - '\bin\s+the\s+realm\s+of\b'
+  - '\btreasure\s+trove\b'
+  - '\bever[-\s]evolving\b'
+  - '\brapidly\s+evolving\b'
+  - '\bfast[-\s]paced\s+world\b'
+  - '\bin\s+today.s\s+[\w\s]{0,20}world\b'
+  - '\bnavigat(?:e|es|ing)\s+the\s+(?:complex|complexit|landscape|world|maze|nuance)'
+  - '\bunlock(?:s|ing)?\s+the\s+(?:potential|power|secret)'
+  - '\bharness(?:es|ing)?\s+the\s+power\b'
+  - '\bembark(?:s|ing)?\s+on\s+(?:a|this|the)\s+journey\b'
+  - '\bat\s+the\s+intersection\s+of\b'
+  - '\b(?:lies|sits|stands)\s+at\s+the\s+(?:heart|core|center|centre)\s+of\b'
+  - '\bgame[-\s]?chang(?:er|ers|ing)\b'
+  - '\brevolutioniz(?:e|es|ed|ing)\b'
+  - '\bparadigm\s+shift\b'
+  - '\bsynerg(?:y|ies|istic)\b'
+  - '\blow[-\s]hanging\s+fruit\b'
+  - '\bmov(?:e|es|ing)\s+the\s+needle\b'
+  - '\bdouble[-\s]edged\s+sword\b'
+  - '\bsilver\s+bullet\b'
+  - '\bnorth\s+star\b'
+
+  # --- filler frames that carry no information ---
+  - '\bneedless\s+to\s+say\b'
+  - '\brest\s+assured\b'
+  - '\bbuckle\s+up\b'
+  - '\bpicture\s+this\b'
+  - '\blet.s\s+dive\s+in\b'
+  - '\b(?:deep\s+dive|dive\s+deep)\s+into\b'
+  - '\bin\s+conclusion\b'
+  - '\bto\s+sum\s+(?:up|it\s+up)\b'
+  - '\bthe\s+bottom\s+line\s+is\b'
+  - '\bboils\s+down\s+to\b'
+  - '\bwhether\s+you.re\s+a\s+[\w\s,]{0,40}\s+or\s+a\b'
+

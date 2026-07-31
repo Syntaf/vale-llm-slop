@@ -1,0 +1,15 @@
+# ASD-STE100: "shall", "should", "may" and "might" leave the obligation
+# unclear. Use "must" for a requirement and "can" for a possibility.
+extends: substitution
+message: "STE: use '%s' instead of '%s'."
+link: https://github.com/Syntaf/vale-llm-slop#stemodals
+level: error
+ignorecase: true
+nonword: false
+swap:
+  shall: must
+  should: must
+  ought to: must
+  may: can
+  might: can
+  could: can

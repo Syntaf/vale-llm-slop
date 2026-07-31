@@ -1,0 +1,13 @@
+# ASD-STE100: do not use contractions. Non-native readers parse the
+# expanded form more reliably.
+extends: existence
+message: "STE: expand the contraction '%s'."
+link: https://github.com/Syntaf/vale-llm-slop#stecontractions
+level: error
+ignorecase: true
+nonword: true
+tokens:
+  - '\b\w+n[''’]t\b'
+  - '\b\w+[''’](?:re|ve|ll|d|s)\b(?!\s)'
+  - '\b(?:it|that|there|here|what|who|he|she|let)[''’]s\b'
+  - '\b(?:I|you|we|they)[''’](?:m|re|ve|ll|d)\b'

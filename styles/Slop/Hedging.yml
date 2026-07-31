@@ -1,0 +1,24 @@
+# Hedges that let a sentence assert nothing while sounding careful.
+extends: existence
+message: "Hedge: '%s'. Commit to the claim or cut it."
+link: https://github.com/Syntaf/vale-llm-slop#slophedging
+level: suggestion
+ignorecase: true
+nonword: true
+tokens:
+  - '\bit\s+could\s+be\s+argued\b'
+  - '\bsome\s+(?:might|would|may)\s+(?:say|argue)\b'
+  - '\bgenerally\s+speaking\b'
+  - '\bin\s+many\s+ways\b'
+  - '\bto\s+some\s+extent\b'
+  - '\bmore\s+often\s+than\s+not\b'
+  - '\bcan\s+be\s+seen\s+as\b'
+  - '\barguably\b'
+  - '\bin\s+most\s+cases\b'
+  - '\bfor\s+the\s+most\s+part\b'
+  - '\bshould\s+probably\b'
+  - '\bwe\s+(?:may|might)\s+want\s+to\b'
+  - '\bit\s+might\s+make\s+sense\s+to\b'
+  - '\bconsider\s+whether\b'
+  - '\bin\s+theory\b'
+  - '\bideally,'

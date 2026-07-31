@@ -1,0 +1,85 @@
+# Plain-English word substitutions.
+#
+# IMPORTANT: this is NOT the ASD-STE100 Dictionary. The official dictionary of
+# ~900 approved words, with their approved parts of speech and meanings, is
+# copyrighted by ASD and is deliberately not reproduced here. See
+# docs/ste-dictionary.md for how to build a full local dictionary rule from
+# your own licensed copy of the specification.
+#
+# What follows is the ordinary plain-language advice shared by GOV.UK,
+# plainlanguage.gov and 18F: prefer the short common word. It overlaps with
+# STE in spirit and covers a good share of real violations, but it is a
+# starting point, not compliance.
+extends: substitution
+message: "Prefer '%s' over '%s'."
+link: https://github.com/Syntaf/vale-llm-slop#stedictionary
+level: warning
+ignorecase: true
+swap:
+  accomplish: do
+  additional: more
+  adjacent\s+to: next to
+  advise: tell
+  approximately: about
+  ascertain: find out
+  assist(?:ance)?: help
+  attempt: try
+  cease: stop
+  commence: start
+  component: part
+  comprise: include
+  demonstrate: show
+  desire: want
+  determine: find out
+  discontinue: stop
+  eliminate: remove
+  employ: use
+  endeavor: try
+  ensure: make sure
+  equivalent: equal
+  establish: set up
+  examine: look at
+  exhibit: show
+  expedite: speed up
+  fabricate: make
+  facilitate: help
+  frequently: often
+  furnish: give
+  identical: the same
+  implement: do
+  indicate: show
+  initiate: start
+  in\s+the\s+event\s+that: if
+  in\s+order\s+to: to
+  in\s+the\s+vicinity\s+of: near
+  locate: find
+  maintain: keep
+  modify: change
+  monitor: watch
+  numerous: many
+  objective: aim
+  obtain: get
+  operate: use
+  optimum: best
+  perform: do
+  permit: let
+  portion: part
+  possess: have
+  previously: before
+  prior\s+to: before
+  procure: buy
+  provide: give
+  purchase: buy
+  regarding: about
+  remainder: rest
+  request: ask for
+  require: need
+  retain: keep
+  subsequent(?:ly)?: next
+  sufficient: enough
+  terminate: stop
+  transmit: send
+  utilize: use
+  verify: check
+  with\s+reference\s+to: about
+  with\s+the\s+exception\s+of: except for

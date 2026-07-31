@@ -1,0 +1,8 @@
+# ASD-STE100: a paragraph must not exceed six sentences.
+extends: occurrence
+message: "Paragraph has %d sentences. STE caps paragraphs at six."
+link: https://github.com/Syntaf/vale-llm-slop#ste
+level: warning
+scope: paragraph
+max: 6
+token: '[.!?]["''’\)\]]*(?:\s|$)'
