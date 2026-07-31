@@ -30,7 +30,9 @@ tokens:
   - '\bempower(?:s|ed|ing)?\b'
   - '\bfoster(?:s|ed|ing)?\b'
   - '\bfacilitat(?:e|es|ed|ing)\b'
-  - '\bunderscor(?:e|es|ed|ing)\b'
+  # Verb only. The plural noun is the literal `_` character (wheel names,
+  # env vars, identifiers), so require the determiner the verb takes.
+  - '\bunderscor(?:e|es|ed|ing)\s+(?:the|this|that|these|those|a|an|its|their|our|how|why|what|by)\b'
   - '\bleverag(?:e|es|ed|ing)\b'
   - '\butiliz(?:e|es|ed|ing|ation)\b'
   - '\bshowcas(?:e|es|ed|ing)\b'

@@ -36,7 +36,6 @@ tokens:
   # Each is legitimate in its home domain, so the exclusions matter.
   - '\bload[-\s]bearing\b(?!\s+(?:wall|walls|beam|beams|column|columns|member|members|structure|capacity))'
   - '(?<!SLSA\s)(?<!build\s)(?<!data\s)(?<!artifact\s)(?<!image\s)(?<!package\s)(?<!chain\s)(?<!file\s)\bprovenance\b'
-  - '\bsentinel\b(?!\s+(?:value|values|node|nodes|object|objects|file|files|error|errors|record|records|entry|entries))'
   - '\bgrain[-\s]matched\b'
   - '\bgrain\s+of\s+(?:truth|salt)\b'
   - '\b(?:against|with|matched\s+against)\s+the\s+grain\b'

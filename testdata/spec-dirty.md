@@ -13,6 +13,7 @@ Let's dive in with a deep dive into the wave system.
 
 We should probably add a watchdog. Consider whether the timer belongs in the
 manager. We may want to leverage the existing event channel where appropriate.
+The retry storm underscores the need for a circuit breaker here.
 
 Note that this ensures correctness and handles the various edge cases
 gracefully, quickly, and reliably. Ultimately, this is by design.
