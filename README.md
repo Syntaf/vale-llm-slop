@@ -51,6 +51,132 @@ Then `vale sync`.
 Or vendor it — copy `styles/Slop` into your own `StylesPath` and skip the
 package machinery entirely.
 
+## Setup: Python projects with uv
+
+Vale is a Go binary, but there is a PyPI wrapper that fetches it, so it can be
+a normal dev dependency.
+
+```sh
+uv add --dev vale
+uv run vale --version      # downloads the binary on first run
+```
+
+Prefer a machine-wide tool instead of a project dependency:
+
+```sh
+uv tool install vale
+```
+
+Write `.vale.ini` at the repo root:
+
+```ini
+StylesPath = .vale
+MinAlertLevel = warning
+Packages = https://github.com/Syntaf/vale-llm-slop/releases/latest/download/vale-llm-slop.zip
+
+[*.py]
+BasedOnStyles = Slop
+
+# Agent-authored specs, plans and design docs.
+[*.md]
+BasedOnStyles = Slop
+
+# Generated code has no prose worth linting.
+[**/migrations/*.py]
+BasedOnStyles = ""
+[**/*_pb2.py]
+BasedOnStyles = ""
+```
+
+Fetch the styles, then run it:
+
+```sh
+uv run vale sync           # re-run whenever the package version changes
+uv run vale src/
+```
+
+Add `.vale/` to `.gitignore` — `vale sync` repopulates it.
+
+### Version note
+
+`uv add --dev vale` currently installs Vale **3.13.0**. All 16 `Slop` rules
+work on it, with no behavioural difference from the latest release. Two `STE`
+rules — `Gerunds` and `NounClusters` — rely on part-of-speech tagging that
+needs **3.16.0 or newer**; on 3.13.0 they silently never fire. If you want
+those, install the binary directly (`brew install vale`) instead of via PyPI.
+
+Nothing else in either style is version-sensitive.
+
+### Exit codes, and gating CI
+
+Vale exits non-zero **only** for `error`-level alerts. `MinAlertLevel` and
+`--minAlertLevel` change what is printed, not the exit code, so a build with
+forty warnings still passes. To make a rule block a build, promote it:
+
+```ini
+[*.py]
+BasedOnStyles = Slop
+Slop.Metaphor = error
+Slop.RestatesCode = error
+```
+
+A reasonable pilot sequence: start with everything reporting and nothing
+gating, read a week of output, then promote the two or three rules that were
+right every time.
+
+### GitHub Actions
+
+```yaml
+- uses: astral-sh/setup-uv@v5
+- run: uv sync --dev
+- run: uv run vale sync
+- run: uv run vale src/
+```
+
+### pre-commit
+
+The upstream hook builds Vale from source with the Go toolchain. In a uv repo
+it is simpler to reuse the pinned dev dependency:
+
+```yaml
+repos:
+  - repo: local
+    hooks:
+      - id: vale
+        name: vale
+        entry: uv run vale
+        language: system
+        types: [python]
+```
+
+Run `uv run vale sync` once before the first commit, or the hook fails with
+`style 'Slop' does not exist on StylesPath`.
+
+### What to expect on a real Python codebase
+
+The style was checked against Google, NumPy and Sphinx docstring conventions.
+`Args:`, `Returns:`, `Raises:`, the NumPy `Parameters/-----` block, Sphinx
+`:param:` and `:returns:` fields, `# noqa`, `# type: ignore` and `TODO(name):`
+comments all pass clean.
+
+One idiom does fire, and it is the first thing to tune:
+
+```python
+def render(template, context):
+    """Render a template with the given context."""   # Slop.EmptyQualifiers
+```
+
+*the given X* is everywhere in Python docstrings. The rule is right on the
+merits — the adjective narrows nothing — but if it is too noisy on day one:
+
+```ini
+[*.py]
+Slop.EmptyQualifiers = suggestion
+```
+
+Vale reads docstrings and comments and skips string literals, so no rule can
+fire on your data or your test fixtures.
+
 ## The rules
 
 ### Slop — agent prose
