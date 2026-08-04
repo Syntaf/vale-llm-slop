@@ -5,7 +5,7 @@ Works with [Vale](https://vale.sh).
 > Let me first find the code before I jump to conclusions. Now I have the full picture, `vale-llm-slop` is the wedge in your prose grained provenance seam. It acts as the load-bearing mechanism for a golden set of prose in your projects.
 
 
-In simpler terms, `vale-llm-slop` tells agents to use less, more simple words. This style is inspired by english standards which are apart of most modern model training sets, making linter an effective guide for agents as they work with the style guide.
+In simpler terms, `vale-llm-slop` tells agents to use less, more simple words. This style is inspired by english standards like ASD-STE100 and helps steer your agents towards writing documentation that us humans can read and comprehend.
 
 ## Make it load bearing
 
