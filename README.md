@@ -1,34 +1,13 @@
-# vale-llm-slop
+![Logo](ascii-art-text.png)
 
-Two [Vale](https://vale.sh) styles for prose that machines write.
+Works with [Vale](https://vale.sh).
 
-**`Slop`** targets the register LLM agents produce in docstrings, code comments,
-specs and plans: metaphor where mechanism belongs, qualifiers that qualify
-nothing, comments that restate the line below them.
+> Let me first find the code before I jump to conclusions. Now I have the full picture, `vale-llm-slop` is the wedge in your prose grained provenance seam. It acts as the load-bearing mechanism for a golden set of prose in your projects.
 
-**`STE`** implements the writing rules of
-[ASD-STE100 Simplified Technical English](https://www.asd-ste100.org/) for
-teams that want the stricter, controlled-language version.
 
-Both run over source files directly. Vale reads comments and docstrings and
-skips string literals, so you can lint `.py`, `.cs`, `.ts`, `.go` and friends
-without touching the code itself.
+In simpler terms, `vale-llm-slop` tells agents to use less, more simple words. This style is inspired by english standards which are apart of most modern model training sets, making linter an effective guide for agents as they work with the style guide.
 
-## The problem it solves
-
-```
-# Reads as the provenance for the firm grain-matched against the fund.
-# Load bearing against the user's request for firm context.
-```
-
-Every word is English. None of them say what the code does. This is what an
-agent produces when it is summarising rather than explaining, and it survives
-every spell-checker and every vocabulary blocklist, because none of the words
-are unusual.
-
-`vale-llm-slop` reports four separate findings on those two lines.
-
-## Install
+## Make it load bearing
 
 Add to your `.vale.ini`:
 
@@ -37,147 +16,108 @@ StylesPath = .vale
 MinAlertLevel = warning
 Packages = https://github.com/Syntaf/vale-llm-slop/releases/latest/download/vale-llm-slop.zip
 
-# Docstrings and comments in source files.
+# Docstrings and comments in source files. Add STE here if you want to be strict
 [*.{py,cs,ts,tsx,js,go,rs,rb,java,kt,swift,php,c,cpp,h}]
 BasedOnStyles = Slop
 
-# Agent-authored specs, plans and docs.
+# Agent-authored specs, plans and docs. Enforce STE (strict)
 [*.md]
-BasedOnStyles = Slop
+BasedOnStyles = Slop, STE
 ```
 
-Then `vale sync`.
+**Slop** catches writing that sounds like AI wrote it. Comments that just repeat the code, buzzwords like "robust" and "delve", fake enthusiasm, empty praise. If Slop flags something, it's probably genuinely bad writing.
 
-Or vendor it — copy `styles/Slop` into your own `StylesPath` and skip the
-package machinery entirely.
+**STE** checks whether writing follows a strict documentation standard. Short sentences, no passive voice, no contractions, one instruction at a time. The writing it flags isn't necessarily bad — it just doesn't follow the standard. This style is much more opinionated and thus is an opt-in on top of slop.
 
-## Setup: Python projects with uv
+## The smoking gun
 
-Vale is a Go binary, but there is a PyPI wrapper that fetches it, so it can be
-a normal dev dependency.
+### `Slop` Before → after
 
-```sh
-uv add --dev vale
-uv run vale --version      # downloads the binary on first run
+*More examples in: [examples/slop-violations.md](examples/slop-violations.md)*
+
+`Slop.Metaphor`:
+
+```diff
+- > This document is historical provenance only — do NOT implement it.
++ > Out of date; kept as a record. Do not implement.
 ```
 
-Prefer a machine-wide tool instead of a project dependency:
+`Slop.RestatesCode`:
 
-```sh
-uv tool install vale
+```diff
+- """Convenience function to record telemetry"""
++ """Module-level shortcut for get_telemetry().record()."""
 ```
 
-Write `.vale.ini` at the repo root:
+`Slop.EmptyQualifiers`:
 
-```ini
-StylesPath = .vale
-MinAlertLevel = warning
-Packages = https://github.com/Syntaf/vale-llm-slop/releases/latest/download/vale-llm-slop.zip
-
-[*.py]
-BasedOnStyles = Slop
-
-# Agent-authored specs, plans and design docs.
-[*.md]
-BasedOnStyles = Slop
-
-# Generated code has no prose worth linting.
-[**/migrations/*.py]
-BasedOnStyles = ""
-[**/*_pb2.py]
-BasedOnStyles = ""
+```diff
+- /// Called via Animation Event during the attack animation.
+- /// Triggers the projectile to fire at the appropriate frame.
++ /// Animation Event on the attack clip's release frame: fires the arrow.
 ```
 
-Fetch the styles, then run it:
+`Slop.Anthropomorphism`:
 
-```sh
-uv run vale sync           # re-run whenever the package version changes
-uv run vale src/
+```diff
+- /// How a shot finds the moving thing it cares about at play time.
++ /// How a shot resolves its subject at play time: the player, nearest
++ /// enemy or ally, a tag, or a name match.
 ```
 
-Add `.vale/` to `.gitignore` — `vale sync` repopulates it.
+`Slop.Vocabulary`:
 
-### Version note
-
-`uv add --dev vale` currently installs Vale **3.13.0**. All 16 `Slop` rules
-work on it, with no behavioural difference from the latest release. Two `STE`
-rules — `Gerunds` and `NounClusters` — rely on part-of-speech tagging that
-needs **3.16.0 or newer**; on 3.13.0 they silently never fire. If you want
-those, install the binary directly (`brew install vale`) instead of via PyPI.
-
-Nothing else in either style is version-sensitive.
-
-### Exit codes, and gating CI
-
-Vale exits non-zero **only** for `error`-level alerts. `MinAlertLevel` and
-`--minAlertLevel` change what is printed, not the exit code, so a build with
-forty warnings still passes. To make a rule block a build, promote it:
-
-```ini
-[*.py]
-BasedOnStyles = Slop
-Slop.Metaphor = error
-Slop.RestatesCode = error
+```diff
+- raising Compute alone barely moves the needle until the cost is enormous
++ raising Compute alone barely shortens the wait until the cost is enormous
 ```
 
-A reasonable pilot sequence: start with everything reporting and nothing
-gating, read a week of output, then promote the two or three rules that were
-right every time.
+`Slop.SelfPraise`:
 
-### GitHub Actions
-
-```yaml
-- uses: astral-sh/setup-uv@v5
-- run: uv sync --dev
-- run: uv run vale sync
-- run: uv run vale src/
+```diff
+- Expected: All edge cases handled gracefully, no null reference errors
++ Expected: CurrentTarget switches to null after the last target dies;
++ no NullReferenceException in the console.
 ```
 
-### pre-commit
+`Slop.Overused`:
 
-The upstream hook builds Vale from source with the Go toolchain. In a uv repo
-it is simpler to reuse the pinned dev dependency:
-
-```yaml
-repos:
-  - repo: local
-    hooks:
-      - id: vale
-        name: vale
-        entry: uv run vale
-        language: system
-        types: [python]
+```diff
+- ✅ Comprehensive error handling and validation
++ (deleted — the five lines above it already list what was built)
 ```
 
-Run `uv run vale sync` once before the first commit, or the hook fails with
-`style 'Slop' does not exist on StylesPath`.
+### `STE` Before -> After
 
-### What to expect on a real Python codebase
+*More examples in: [examples/ste-violations.md](examples/ste-violations.md)*
 
-The style was checked against Google, NumPy and Sphinx docstring conventions.
-`Args:`, `Returns:`, `Raises:`, the NumPy `Parameters/-----` block, Sphinx
-`:param:` and `:returns:` fields, `# noqa`, `# type: ignore` and `TODO(name):`
-comments all pass clean.
+`STE.SentenceLength`
 
-One idiom does fire, and it is the first thing to tune:
-
-```python
-def render(template, context):
-    """Render a template with the given context."""   # Slop.EmptyQualifiers
+```diff
+- First, the save/load path — the thing that IS the player's progress — has a
+- confirmed, irreversible data-loss vector: a corrupt active-save read silently
+- returns null with no backup, boots a fresh game on the same id, and lets the
+- next 30s autosave overwrite the unreadable file, …
++ The save path is the player's progress, and it has a confirmed, irreversible
++ data-loss vector. A corrupt save read returns null with no backup. The game
++ then boots fresh on the same id. The next 30-second autosave overwrites the
++ unreadable file.
 ```
 
-*the given X* is everywhere in Python docstrings. The rule is right on the
-merits — the adjective narrows nothing — but if it is too noisy on day one:
+`STE.PassiveVoice`
 
-```ini
-[*.py]
-Slop.EmptyQualifiers = suggestion
+```diff
+- 1. Architecture contract is genuinely enforced, not aspirational: …
++ 1. The asmdef enforces the architecture contract: …
 ```
 
-Vale reads docstrings and comments and skips string literals, so no rule can
-fire on your data or your test fixtures.
+`STE.Dictionary`
 
-## The rules
+```diff
+- Treat the percentage portion of Effect as data
++ Treat the percentage part of Effect as data
+```
+
 
 ### Slop — agent prose
 
@@ -213,26 +153,22 @@ fire on your data or your test fixtures.
 (*shall* → *must*), `Contractions`, `OneInstruction`, `Dictionary`.
 
 `STE` is stricter than most teams want on ordinary prose. Scope it to the docs
-that need it.
+that need it:
+
+```ini
+# Opt-in: procedures and runbooks that need ASD-STE100 discipline.
+[docs/procedures/**.md]
+BasedOnStyles = Slop, STE
+```
 
 **The STE Dictionary is not included.** ASD holds copyright on the ~900-word
 approved list, so `Dictionary.yml` ships ordinary plain-English substitutions
 instead. See [docs/ste-dictionary.md](docs/ste-dictionary.md) for how to build
 the full rule locally from your own copy of the specification.
 
+
+
 ## Tuning
-
-Every style gets muted eventually if it cries wolf, so precision was the design
-constraint. Two consequences:
-
-**Terms of art are excluded by lookaround.** `SLSA provenance`, `build
-provenance`, `sentinel value`, `sentinel node` and `load-bearing wall` do not
-fire. `testdata/exclusions-clean.py` asserts this, and `scripts/test.sh` fails
-if it breaks. Add your own domain's exclusions the same way.
-
-**Levels are deliberate.** `Assistant` is an `error` because chat voice in a
-commit is never intentional. `Ceremony` and `Overused` are `suggestion` because
-any single hit may be correct — the signal there is density.
 
 Turn anything off per-path:
 
@@ -258,19 +194,14 @@ VALE=/path/to/vale ./scripts/test.sh
 
 Two properties are asserted: every rule fires at least once on a dirty fixture
 (no dead rules), and the clean fixtures produce **zero** alerts (no false
-positives). Currently 28 rules, 80 alerts on the dirty fixtures, 0 on the clean
+positives). Currently 28 rules, 82 alerts on the dirty fixtures, 0 on the clean
 ones.
 
 ## A note on the author
 
-This repo was written by an LLM agent, and the `Slop` style flags its own
-first draft. "The signal is density, not any single hit." "Less elegant and
-much more reliable." "A style people mute is worse than none." Three instances
-of the negative-parallelism cadence, written into the comments of the rule file
-that bans it.
+This repo was written by an LLM agent, but the README was produced by me, a human, who cares about the readability of their LLM generated code. My `Slop` style is the first draft of what I feel matters in LLM prose.
 
-That is the argument for the linter, not against it. The habit is not
-detectable from the inside.
+Open to contributions if anyone feels I missed anything big!
 
 ## Licence
 
