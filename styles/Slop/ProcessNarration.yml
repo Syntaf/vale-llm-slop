@@ -1,0 +1,23 @@
+# Narrating what you are about to do instead of doing it.
+#
+# "Let me check that for you" -- the reader does not need a tour of your
+# next action. The action either happens or it does not.
+#
+# "I'll analyze this", "I'm going to examine", "I will review" -- first-person
+# process narration is a strong LLM fingerprint. Natural writers state what
+# is true or what is happening; they do not announce their intentions.
+#
+# "Let me know", "let me ask" (helpful closings) are excluded.
+extends: existence
+message: "Process narration: '%s'. State the result, not the next step."
+link: https://github.com/Syntaf/vale-llm-slop#slop
+level: suggestion
+ignorecase: true
+nonword: true
+tokens:
+  # "Let me check" / "Let me analyze" -- but not "let me know" / "let me ask"
+  - '\blet\s+me\s+(?:check|analyze|analyse|review|gather|explain|verify|examine|show|dive\s+deep|dive\s+into|look\s+up|pull\s+up|search\s+for|walk\s+through|step\s+through|run\s+through|dig\s+into|go\s+over|go\s+through|pull\s+together|put\s+together|clarify|elaborate|expand)\b(?!\s+(?:you\s+?)?(?:know|ask))'
+  # "I'll check" / "I'll analyze" -- contractions that narrate intent
+  - '\bi''ll\s+(?:check|analyze|analyse|review|gather|explain|verify|examine|show|dive\s+deep|dive\s+into|look\s+up|pull\s+up|search\s+for|walk\s+through|step\s+through|run\s+through|dig\s+into|go\s+over|go\s+through|pull\s+together|put\s+together|clarify|elaborate|expand)\b'
+  # "I'm going to" -- future-self narration
+  - '\bi''m\s+going\s+to\s+(?:check|analyze|analyse|review|gather|explain|verify|examine|show|dive\s+deep|dive\s+into|look\s+up|pull\s+up|search\s+for|walk\s+through|step\s+through|run\s+through|dig\s+into|go\s+over|go\s+through|pull\s+together|put\s+together|clarify|elaborate|expand)\b'

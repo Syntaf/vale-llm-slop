@@ -1,0 +1,13 @@
+# The filler construction: "go ahead and [verb]" where "and" adds nothing.
+#
+# "Go ahead and give me the path" — natural English is "give me the path".
+# "Go ahead and" is a spoken filler that migrated into writing, and it
+# appears disproportionately in LLM-generated prose.
+extends: existence
+message: "Filler construction: '%s'. Remove 'and' and tighten."
+link: https://github.com/Syntaf/vale-llm-slop#slop
+level: suggestion
+ignorecase: true
+nonword: true
+tokens:
+  - '\bgo\s+ahead\s+and\b'
