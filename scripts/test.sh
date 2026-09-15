@@ -56,6 +56,9 @@ expected = {
     'Slop.Vocabulary', 'Slop.Overused', 'Slop.NegativeParallelism', 'Slop.EmDash',
     'Slop.Tricolon', 'Slop.Headers', 'Slop.Assistant', 'Slop.Transitions',
     'Slop.Hedging',
+    # self-referential tells
+    'Slop.ProcessNarration', 'Slop.FillerConstruction', 'Slop.SelfHedging',
+    'Slop.SelfReference',
     # ASD-STE100
     'STE.SentenceLength', 'STE.ProcedureLength', 'STE.ParagraphLength',
     'STE.Gerunds', 'STE.PassiveVoice', 'STE.NounClusters', 'STE.Articles',

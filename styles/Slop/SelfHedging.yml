@@ -1,0 +1,22 @@
+# First-person self-reference used to pad sentences instead of stating claims.
+#
+# "I need to analyze this" — the reader does not need to know what you are
+# about to do. "I should mention" — the information either matters or it
+# does not. These are not hedges in the uncertainty sense; they are verbal
+# padding that makes a sentence longer without adding information.
+#
+# Distinct from Hedging.yml (which catches uncertainty markers like "might",
+# "could be argued", "some might say") — this rule targets the first-person
+# obligation framing that LLMs reach for to fill space.
+extends: existence
+message: "Self-referential padding: '%s'. Cut to the claim."
+link: https://github.com/Syntaf/vale-llm-slop#slop
+level: suggestion
+ignorecase: true
+nonword: true
+tokens:
+  - '\bi\s+need\s+to\s+(?:note|mention|clarify|explain|state|say|add|highlight|emphasize|point\s+out)\b'
+  - '\bi\s+should\s+(?:mention|note|clarify|add|point\s+out|highlight)\b'
+  - '\bi\s+have\s+to\s+(?:mention|note|clarify|explain|state|add|point\s+out)\b'
+  - '\bi\s+would\s+need\s+to\s+(?:note|mention|clarify|explain|state|add)\b'
+  - '\bi\s+will\s+need\s+to\s+(?:note|mention|clarify|explain|state|add)\b'

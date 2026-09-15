@@ -8,4 +8,5 @@ public void Apply(Boon boon)
     // Behind the scenes, this properly handles the relevant modifiers
     // and makes the code more maintainable. Best practice.
     // The pipeline wants a flushed cache, as expected.
+    // I need to note that the stack resets after each phase.
 }

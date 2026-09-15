@@ -3,6 +3,8 @@
 This module is essentially a thin wrapper around the matcher. Under the hood it
 reads as the provenance for the firm grain-matched against the fund. Load
 bearing against the user's request for firm context.
+
+The matcher knows about the fund's shape, so this is by design.
 """
 
 

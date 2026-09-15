@@ -1,0 +1,18 @@
+# LLMs constantly narrate what they perceive — "I can see", "I can tell", "I
+# can make out" — as if the reader shares their visual field. A human writer
+# doesn't need to announce what they observe; they just describe it.
+#
+# "I can see the issue is in line 42" → just say "The issue is in line 42."
+# "I can tell you need X" → just say "You need X."
+extends: existence
+message: "Self-reference: '%s'. State the observation directly."
+link: https://github.com/Syntaf/vale-llm-slop#slop
+level: suggestion
+ignorecase: true
+nonword: true
+tokens:
+  - '\bi\s+can\s+(?:see|tell)\s+(?:the|this|that|it|some|there)\b'
+  - '\bi\s+can\s+(?:see|tell)\s+that\b'
+  - '\bi\s+can\s+(?:see|tell)\s+your\b'
+  - '\bi\s+can\s+make\s+out\b'
+  - '\bi\s+can\s+spot\b'

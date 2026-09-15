@@ -130,6 +130,9 @@ BasedOnStyles = Slop, STE
 | `VagueReasons` | A reason slot with no reason in it: *for various reasons*, *due to the nature of* | warning |
 | `Ceremony` | Throat-clearing: *Note that*, *Under the hood*, *At a high level* | suggestion |
 | `Anthropomorphism` | Intentions code does not have: *the parser wants*, *knows about* | suggestion |
+| `ProcessNarration` | Narrating the next step instead of doing it: *let me check*, *I'll analyze*, *I'm going to verify* | suggestion |
+| `SelfHedging` | Self-referential padding: *I need to note*, *I should mention*, *I have to point out* | suggestion |
+| `SelfReference` | LLMs narrate what they perceive: *I can see the*, *I can tell you need*, *I can make out* | suggestion |
 
 ### Slop — general machine cadence
 
@@ -144,6 +147,7 @@ BasedOnStyles = Slop, STE
 | `Tricolon` | *gracefully, quickly, and reliably* | suggestion |
 | `Headers` | *Key Takeaways*, *A Deep Dive*, *Why X Matters* | suggestion |
 | `Transitions` | *Moreover,*, *Ultimately,*, *At its core,* | suggestion |
+| `FillerConstruction` | Spoken filler migrated into writing: *go ahead and* | suggestion |
 
 ### STE — ASD-STE100 writing rules
 
@@ -194,7 +198,7 @@ VALE=/path/to/vale ./scripts/test.sh
 
 Two properties are asserted: every rule fires at least once on a dirty fixture
 (no dead rules), and the clean fixtures produce **zero** alerts (no false
-positives). Currently 28 rules, 82 alerts on the dirty fixtures, 0 on the clean
+positives). Currently 32 rules, 90 alerts on the dirty fixtures, 0 on the clean
 ones.
 
 ## A note on the author
